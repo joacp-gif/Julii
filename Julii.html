@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julii</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #1c227e, #020533);
+  color: white;
+}
+
+h1 {
+  text-align: center;
+  padding: 20px;
+}
+
+.music-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  display: flex;
+  max-width: 80%;
+  background: #412061;
+  border-radius: 20px;
+  overflow: hidden;
+  animation: fadeIn 0.4s;
+}
+
+.modal img {
+  width: 50%;
+  object-fit: cover;
+}
+
+.text {
+  padding: 20px;
+  width: 50%;
+  overflow-y: auto;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+
+.heart-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.heart {
+  position: relative;
+  width: 80px;
+  height: 70px;
+  animation: latido 1s infinite;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 65px;
+  background: #ff2e63;
+  border-radius: 40px 40px 0 0;
+}
+
+.heart:before {
+  left: 40px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+@keyframes latido {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+
+.flowers {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 10px;
+}
+
+.flower {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.petal {
+  position: absolute;
+  width: 18px;
+  height: 30px;
+  background: white;
+  border-radius: 50%;
+  top: 15px;
+  left: 21px;
+  transform-origin: center bottom;
+}
+
+.petal:nth-child(1){ transform: rotate(0deg); }
+.petal:nth-child(2){ transform: rotate(45deg); }
+.petal:nth-child(3){ transform: rotate(90deg); }
+.petal:nth-child(4){ transform: rotate(135deg); }
+.petal:nth-child(5){ transform: rotate(180deg); }
+.petal:nth-child(6){ transform: rotate(225deg); }
+.petal:nth-child(7){ transform: rotate(270deg); }
+.petal:nth-child(8){ transform: rotate(315deg); }
+
+.center-flower {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: yellow;
+  border-radius: 50%;
+  top: 19px;
+  left: 19px;
+}
+
+
+@media (max-width: 768px) {
+
+  h1 {
+    font-size: 22px;
+    padding: 15px;
+  }
+
+  .music-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .gallery img {
+    border-radius: 10px;
+  }
+
+  
+  .heart {
+    width: 60px;
+    height: 55px;
+  }
+
+  .heart:before,
+  .heart:after {
+    width: 30px;
+    height: 50px;
+  }
+
+  
+  .flowers {
+    gap: 15px;
+  }
+
+  .flower {
+    width: 45px;
+    height: 45px;
+  }
+
+  .petal {
+    width: 12px;
+    height: 22px;
+    top: 10px;
+    left: 16px;
+  }
+
+  .center-flower {
+    width: 16px;
+    height: 16px;
+    top: 14px;
+    left: 14px;
+  }
+
+  /* 📖 MODAL en vertical */
+  .modal-content {
+    flex-direction: column;
+    max-width: 95%;
+    max-height: 90%;
+  }
+
+  .modal img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .text {
+    width: 100%;
+    font-size: 14px;
+    max-height: 300px;
+  }
+
+  /* 📝 texto final */
+  h3 {
+    font-size: 14px;
+    padding: 15px;
+    line-height: 1.5;
+  }
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.8);} 
+  to {opacity: 1; transform: scale(1);} 
+}
+</style>
+</head>
+<body>
+
+<h1>❤️ Mis Recuerdos ❤️</h1>
+
+<button class="music-btn" onclick="toggleMusic()">🎵 Música</button>
+
+
+<audio id="bg-music" loop autoplay muted playsinline>
+  <source src="Mary.mp3" type="audio/mpeg">
+</audio>
+
+<div class="gallery">
+  <img src="dibujo de julii.jpeg" onclick="openModal(this, 'siempre me acuerdo de ese dia, estaba nervioso, no sabia q hacer, me acuerdo q cuando llegue me habia re pasado con el subte y te dije q iba a llegar tarde, vos me dijiste q tranqui q no habias ni salido jsjs, despues cuando llegue te espere y cuando apareciste, el mundo a mi alrededor se detuvo y mi corazon empezo a latir rapidizimo, me dijiste; holiis, como estas?, yo no me la podia creer lo hermosa q sos, me acuerdo q fuimos para el cosito kawai y no sabia q decirte, cruzamos el puente y empece a contarte algo de jojos jsjs, despues de ahi te compre algo, porque vos no querias elegir nos fuimos a la plazita de ahi, y hablamos por unas horas, ese dia me acuerdo q estabas usando un hermoso top blanco y una hermosa falda negra, con tus lindos zapatitos, y vos fuiste la primera q activo y me dijiste lo del beso humo, ese dia me dijiste q soy lindo mas en persona y hablo mas jsjs, ese dia vos tomaste una foto nomas y nunca me la pasate pero tengo tu hermoso dibujo q hiciste de ese dia, me acuerdo q cuando nos estabamos despidiendo no querias q me vaya y yo no me queria ir, siempre me duele despedirme de vos, te dije q nos ibamos a ver otra vez en la semana y me dijiste q si, pero no me queria ir ese dia, nunca me quiero ir cuando estoy con vos. fue 17/01/2026 ')">
+  <img src="Juliii 1.jpeg" onclick="openModal(this, 'me acuerdo que pasando esa semana, salimos el 22 y el 25, de enero, porque el 26 empezaba la UTN, estaba re nervioso y me dijiste para salir y ir a la feria que quedaba cerca de plaza de mayo, jsjs me acuerdo q llegue todo sudado y vos me dijiste q te fuiste hasta el puente de la mujer y yo me quede re ._., jsjs, ese dia vimos toda la feria y nos fuimos para el parque lezama y vos querias comprar algo para tomar y nos fuimos re lejos porque no querias hablar con la que atiende jsjs, pero volvimos al kiosco y te armaste de valor, ese dia jugaba boca y estaban todos los hinchas, esa noche volvimos para la plazita donde nos conocimos, me acuerdo q el 22 estabas con un top de franjas celestes y blanco con tu hermosa falda blanca, y el 25 estabas con un pantalon parecia elegante estaba hermoso con una remera con botones arriba, ese dia fue lindo, ademas q ya desde q nos habiamos conocido me hacias chupones y yo tambien, me encanta cuando me haces uno porque me dejas marcado y pienso en vos cuando lo veo, ese dia vos tenes fotos, todavia no me las pasabas, pero tengo foto del chupon, el 22-25/01/2026')">
+  <img src="julii 2.jpeg" onclick="openModal(this, 'ese dia me acuerdo que estabas todo de negro onda melvis estabas hermosa con tu vestido negro, tus labios y tu deliniado hermoso, ese dia me acuerdo que fuimos a caminar en la reserva y nos dimos besitos en el puente, despues salimos y caminamos un poquito y te queria invitar a comer una sopa jsjs, soy un tonto, pero es algo que hago especial para mi, encima vos dijiste q si, jsjsj esa foto fue antes de que este todo rojo por el calor y porque me habia picado, fue la primera semana q fui a la UTN y me la alegaste porque no habia hablado con nadie y vos esa semana me diste animos, que podia, esa fue la primera foto q nos sacamos de mi celular, nos vimos el sabado 31/01/2026')">
+  <img src="julii 3.jpeg" onclick="openModal(this, 'jsjsj me acuerdo q cuando llegamos a la plaza de puerto madero nos estabamos dando besitos mientras hablabamos, despues fuimos al coso kawai y te compre un heladito y compre un jugito asi no teniamos tanto calor, despues de ahi fuimos a nuestro nidito y veiamos como se caian los nenes con el mono patin o con la bici sjjss, despues me hiciste un megachupon, me habias dicho; nuuu me pashe me pashe, jsjjs y despues yo te hice en la espalda, caminamos hasta donde estaban los puentes y nos quedamos sentados hablando, me preguntaste como me fue esa semana en la UTN y yo todo cagado por los parciales, me diste animos y nos besamos, fue lindo porque hablamos de arte, de donde viviramos y que hariamos, me acuerdo q compraste un jugito vos despues y nos dimos un beso con jugo sjjs, me sacaste esa foto vos para q vea el chupo, habia pasado un mes desde que nos conociamos y te dije que si querias salir conmigo el 14 y me dijiste que si, esa noche me fui muy feliz porque te iba a ver el 14 y era mi primer 14 con alguien q adoro mucho, vos me dijiste q tambien era tu primer san valetin con alguien, ese dia fue el 7/02/2026')">
+  <img src="julii 4.jpeg" onclick="openModal(this, 'me acuerdo que habia llegado antes, estaba buscando un lugar de flores desde q sali de mi casa hasta llegar ahi y no encontre y me puse triste porque te habia comprado un alfajacorcito y me faltaba las florecitas, se que te gustan las margaritas, siempre cuando salgo de mi casa busco lugares para comprar pero no encuentro, ese dia estabas con el top blanco con la falda negra, como nos conocimos, me acuerdo que te fue tu primera vez en el Palacio libertad jsjs, lastima q no te pude mostrar lo que queria, pero me dijiste q la pasaste bien y sacaste un par de fotis, despues de ahi nos fuimos para la plaza que siempre vamos jsjs, nos quedamos ahi y creo q habia comprado despues uno jugito, fue lindo ese dia, me hubiera gustado haberte llevado a otro lugar pero como siempre soy un tontito, cuando sacaste la foto, me sale una lagrimita, porque la pase tan lindo con vos, me gusto mucho salir ese dia con vos y me emocione, me gusta salir con vos, porque soy feliz, me haces q olvide los problemas q tengo en casa o en cualquier lugar, sos importante para mi y ese dia me hiciste emocionarme, fue el 14/02/2026 ')">
+  <img src="Julii 5.jpeg" onclick="openModal(this, ' fue la primera ves q fuimos a otro lugar, yo te queria llevar al bellas artes, pero habia una re filaa, me dijiste q no y justo habia una feria y se que te gusta asi que te dije para ver y me dijiste q sii, me encanta verte chusmear y verte feliz, me llena el alma con verte, vimos y dimos todaa una vuelta sjs, me dijiste q te dolian los piecitos y nos fuimos al pastito, hablamos un monton y mismo pense que vos querias hacer un picnic y yo tambien y te dije para hacerlo aca la semana que venia y me dijiste q sii, ese dia me estabas tranquilizando porque habia ido a rendir a la utn y no me habia ido tan bieen, me hiciste probar un porrito y estaba riko riko, me gusta compartir esos momentos con vos, porque sos especial para mi, muuuy especial, te quiero muucho mucho, despues en esa noche estabamos buscando un lugar para que yo meara y mismo me dijiste q querias ver mi wsp y ig te negue porque queria ver que hacias, yo nunca me voy a hablar con otra persona, solo tengo ojos para vos, no me gusta hablar con otra, tampoco lo haria, me gusta todo de vos, ese dia fue el 21/02/2026 ')">
+  <img src="Julii 6.jpeg" onclick="openModal(this, ' fue dia de picniiic, estaba nervioso a la mañana que el browin me salga mal y me levante y lo empece a hacer, habia salido a comprar uno jugo baggio el q te gusta y unas gomitas q tambien que se q te gustan, apenas termine el browin y sali rapidizimo para ir al subte, siempre cuando te veo me enamoras como la primera vez que te vi, estabas con unas hermosas trensas y tu hermoso pañuelo en la cabeza, vos habias hecho unos riquisimos muffins y unas riquismas galletitas con glaciado de chocolate, nunca nadie me cocino algo tan especial para mi, ese dia queria llorar de emocion porque se que me queres, te abraze fuerte y nos sacamos fotitos, habias traido una mantita hermosa jsjs, no comi mucho porque estaba nerviso, nerviso de lo linda q sos, pero cuando comi con vos posta que fue la cosa mas risquisima q probe, me encanto todo, por eso te cambie mis browin por un poco de lo tuyo y me dijiste q sii, me acuerdo q ese dia entramos al bellas artes porque no habia tanta fila, estaba nerviso yo por si nos pedian el DNI pero no, me acuerdo q estabamos jugando a sacarle foto a cosas con colores, jsjs q no lo terminamos de hacer porque no habia nada de tal color q elegimos, fue lindoo ademas vos me explicabas algunas cosas de las pinturas y me fasino como sabias, fue hermoso, despues mas a la noche, hacia frio esa noche y me levante y te tape con la mantita, y te abrace para q no tengas tanto, fue ahi q tambien nos sacamos fotitos, me encanta salir con vos Ju, nunca me voy a cansar de decirlo, me haces muy feliz, 7/03/2026, esa noche me diste tu pañuelo rojo, me dijiste q era tu favorito y q te lo cuide, me dijiste que es para q no me olvide de vos nunca ')">
+  <img src="Julii 7.jpeg" onclick="openModal(this, '14/03/2026 ese dia estabamos hablando a la noche como siempre, y me dibujaste, me dijiste q era facil de dibujar jsjs, me gustan muchos tus dibujos, desde siempre, si pudiera tatuarme uno, lo haria sin dudarlo ')">
+  <img src="Julii 8.jpeg" onclick="openModal(this, ' ese dia caminamos y chusmeamo la feria, al comienzo no hacia tanto frioo, pero despues a la noche hacia un re frioo, estabas con una falda negra, un top negro y unas medias negras afelpadas hermosass, siempre estas hermosa, me dijiste q te tuviste q tapar con la campera porque se te veia todo abajo y me preocupe y te di mi buzo cuando te fuiste, para q no te viera ningun pajero, y estes segura, me encato darte ese buzo porque te queda hermoso, me gusto mucho la foto q me pasate cuando te ibas a dormir con el, fue el 14/03/2026   ')">
+  <img src="Julii 9.jpeg" onclick="openModal(this, 'me dijiste para ir al barrio chino ese dia, fue hermoso, querias comer cangrego jsjs me acuerdo, fuimos en el subte y fue un re viajecito pero me gusto porque estabas conmigo, llegamos y empezamos a buscar y no encontramos, empezamos a chusmear tienda por tienda y fue linduu, jsjs me gusta verte, despues fuimos a un supermercado y compre un jugo asquerosooo, un saku y compre unas gomitas para vos que te gusto la lata, despues compre unos domplis y fuimos a una plazita de ahi, comimos, tomtamos y nos reimos jsjs, te gusto mucho el saku q fuimos y compramos otro y vos compraste ahi un langostino frito, estaba riquisimoo, despues compramos el saku y dijste para ir a puerto madero, te dije q si, y me encanto todo porque fue un lindo viaje y cuando llegamos nos acordamos q estaban festejando lo del 24 de marzo jsjs, me emocione porque nunca fui a un lugar asi y tuvimos q rodear todo para pasar y fuimos y nos dimos varios besitos, me gusto mucho, hasta q llego ese viejo de mrd, por dios, que susto nos dio, pero apesar de eso, me gusto ese dia porque nos movimos mas, fue el 23/03/2026 ')">
+  <img src="Julii 10.jpeg" onclick="openModal(this, ' me ofreciste para ir a alto avellaneda y te dije q si, vos me dijiste q no querias viajar tanto y yo no tengo problema para ir hasta alla, no tengo problema en viajar tan lejos solo por verte, me mostraste el shopping y estaba hermoso, despues me contaste cosas de ahi, las canchas y eso, me gusto porque era otro lugar pero parecia capital todavia, pasamos toda la tarde acostados en el pasto y vos me querias revisar el celu de nuevo sjsj, te mostre y me dijiste aww, sjjs, despues de ahi estaba anocheciendo y me dijiste para irnos, pero te ofreci un heladito y me dijiste que sii, jsjs, me sacaste las fotos cuando estaba serio en ese momento sjsj, pero me gusta sacarme fotos con vos, es especial cada foto q tengo con vos o q me compartis, fue el 28/03/2026 ')">
+  <img src="Julii 11.jpeg" onclick="openModal(this, 'sali apurado ese dia porque no queria llegar tarde, y empece a ver hinchas de independiente jjs, me acuerdo q te dije y me dijiste si eso te iba a decir, fui para alto avellaneda y me pase con el colectivo sjjs, cuando llegue me dijiste al frente en mensaje y te vi, estabas tan hermosa como siempre q me quede boludito de lo linda q estabas, me contaste q hiciste el jueves con tus amigas, me contaste q la pasaron bieen, despues lo de la vieja de mrd q les grito algo, que rabiaa, vieja de mrd porque no se mete en su vidaa, tambien q cami vomito, quisimos entrar al chango mas pero el guardia estupido dijo q uno podia entrar, nada q verrr, me re enoje ahi, dimos unas vueltitas y nos fuimos para un lado de donde estabamos la ultima vez, me acuerdo q te di muchos besitos en la cara y me dijiste q estaba muy meloso jsjs, despues empezamos a jugar, como niños jsjs, me gusto mucho, corres re tierna, tambien me decias me caigo y iba rapido a agarrarte, lo adore, me dijiste que despues antes de irnos querias pasar por un lugar para ver, como era semana santa, cuando nos estabamos volviendo te compre un heladito y me compre unas papitas ñaam, fuimos para el lugar q querias ir y habian un monton de huevitos de chocolates, vimos todos y despues fuimos al baño, antes de eso en la plazita nos estabmos sacando fotos, hiciste un tiktok conmigo sjjs, me besaste toda la cara tambien y me dejaste marcado con el maquillaje jsjs fue hermoso, porque despues compre el helado con la cara marcada jsj y vimos tdo y yo con maquillaje jsjs, despues cuando saliumos del baño vos me dijiste q querias comprar algo, compraste unos alfajores riquisimos para mi y para mis papis, tambien para los tuyos y nos salimos de ahi y nos sentamos un rato, no se como surgio la charla, pero te habia dicho de ser novios y me dijiste que sip, te pregunte segura? y me dijiste q sii muy segura, estabas muy feliz y yo tambien y despues te dijeq  te lo iba a proponer mejor jsj porque fue muy seco de mi parte y queria regalarte un par de cositas tambien, esa noche nos dimos un beso tan hermoso, me dijiste q se lo querias contar a demi, a tus amigas, y ibas a esperar una semana para contarselo a tus papis, yo estaba tan feliz esa noche fue el 4/04/2026, esa noche habiamos cumplido 4 meses desde q nos conociamos ')">
+</div>
+<h3> Julieta Lucia Lera, Juli, Ju, mi Ju, JuliJu, te quiero con todo mi corazon, hice esto para que veas que si te amo y te adoro, (estoy llorando por emocion ahora jsj) no quiero alejarme de vos, te conoci en mi peor momento de mi vida, y la verdad, desde q empece a hablarte, desde q te conoci ese 17 de enero, me hiciste tan feliz, nadie me hace tan feliz como vos, no me quiero alejar de vos, se que algunas veces las personas tienen sus problemas, se que lo q menos quieren es pelearse o lastimar a otros, pero yo no quiero q me alejes, quiero ser parte de vos, si tenes problemas quiero q sean mis problemas tambien, quiero q cuando te sientas mal me cuentes, yo nunca te voy a juzgar, siempre te voy a escuchar, dar todo mi amor para q seas feliz y verte feliz, no me importa el viaje, tampoco me importa el dinero q gasto, mientras vos este feliz y la estes pasando muy lindo yo voy a estar muy feliz con vos, te amo enserio, no quiero q lo dudes, no voy a conocer a otras personas, me basta tenerte a vos y a Didi </h3>
+
+<div class="modal" id="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <div class="modal-content">
+    <img id="modal-img">
+    <div class="text" id="modal-text"></div>
+  </div>
+</div>
+
+<script>
+let music = document.getElementById('bg-music');
+let playing = false;
+
+
+window.addEventListener('click', () => {
+  if (music.muted) {
+    music.muted = false;
+    music.play();
+    playing = true;
+  }
+}, { once: true });
+
+function toggleMusic() {
+  if (!playing) {
+    music.muted = false;
+    music.play();
+    playing = true;
+  } else {
+    music.pause();
+    playing = false;
+  }
+}
+
+function openModal(img, text) {
+  document.getElementById('modal').style.display = 'flex';
+  document.getElementById('modal-img').src = img.src;
+  document.getElementById('modal-text').innerText = text;
+}
+
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+
+window.onclick = function(event) {
+  let modal = document.getElementById('modal');
+  if (event.target === modal) {
+    modal.style.display = 'none';
+  }
+}
+</script>
+
+
+<div class="heart-container">
+  <div class="heart"></div>
+</div>
+
+<div class="flowers">
+  <div class="flower">
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="center-flower"></div>
+  </div>
+
+  <div class="flower">
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="center-flower"></div>
+  </div>
+
+  <div class="flower">
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="center-flower"></div>
+  </div>
+</div>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</body>
+</html>
